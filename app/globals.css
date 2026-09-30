@@ -356,3 +356,49 @@ html[data-theme="light"] { --polaroid-bg: #fffdf7; --polaroid-ink: #263238; --po
   .section-id { font-size: 9px; }
   .project-status { font-size: 8px; }
 }
+
+.nav-menu-toggle {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  width: 34px;
+}
+
+.nav-menu-toggle span {
+  background: currentColor;
+  display: block;
+  height: 1px;
+  transition: transform .2s, opacity .2s;
+  width: 14px;
+}
+
+@media (max-width: 600px) {
+  .nav-menu-toggle { display: flex; }
+  .nav-contact { display: none; }
+  .nav-links {
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 4px 0;
+  }
+  .nav-links.is-open { display: flex; }
+  .nav-links a {
+    padding: 12px 0;
+    width: 100%;
+  }
+  .nav-links a + a { border-top: 1px solid var(--line); }
+  .nav-menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(5px) rotate(45deg); }
+  .nav-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-5px) rotate(-45deg); }
+}
