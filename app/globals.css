@@ -266,3 +266,93 @@ html[data-theme="light"] { --polaroid-bg: #fffdf7; --polaroid-ink: #263238; --po
 
 .section-focus .section-heading { animation: section-heading-focus .9s ease both; }
 @keyframes section-heading-focus { 0% { opacity: .45; transform: translateX(-10px); } 45% { color: var(--cyan); opacity: 1; transform: translateX(4px); } 100% { opacity: 1; transform: translateX(0); } }
+
+/* Small-screen layout hardening. Keep the desktop composition intact while
+   allowing every content block to shrink cleanly on narrow phones. */
+@media (max-width: 600px) {
+  .shell { width: min(100% - 32px, 620px); }
+
+  .nav {
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 70px;
+    padding: 14px 0 12px;
+    row-gap: 14px;
+  }
+
+  .brand { min-width: 0; }
+  .brand-name { font-size: clamp(9px, 2.8vw, 11px); white-space: nowrap; }
+  .nav-actions { margin-left: auto; }
+  .nav-links {
+    flex: 0 0 100%;
+    gap: 0;
+    justify-content: space-between;
+    margin: 0;
+    order: 3;
+    width: 100%;
+  }
+  .nav-links a { font-size: 9px; letter-spacing: .06em; }
+
+  .hero { padding: 58px 0 60px; }
+  .eyebrow { align-items: flex-start; flex-wrap: wrap; row-gap: 5px; }
+  .hero h1 { font-size: clamp(52px, 15vw, 68px); overflow-wrap: anywhere; }
+  .hero-intro { font-size: 16px; }
+  .hero-actions { align-items: stretch; gap: 18px; }
+  .hero-actions .button { justify-content: space-between; width: min(100%, 270px); }
+  .hero-terminal { margin-top: 62px; }
+
+  .terminal-bar { padding: 12px 13px; }
+  .terminal-title { font-size: 9px; margin-left: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .terminal-body { font-size: 11px; line-height: 1.75; min-height: 310px; padding: 22px 15px; }
+  .terminal-line { align-items: flex-start; flex-wrap: wrap; gap: 6px 8px; }
+  .terminal-line .command { overflow-wrap: anywhere; }
+  .terminal-output, .terminal-code { margin-left: 24px; max-width: calc(100% - 24px); overflow-wrap: anywhere; }
+  .terminal-code .indent { margin-left: 12px; }
+  .terminal-footer { gap: 12px; line-height: 1.4; padding: 10px 13px; }
+  .terminal-footer span { min-width: 0; }
+  .terminal-footer span:last-child { text-align: right; }
+
+  .section-heading { gap: 12px; }
+  .section-id { white-space: nowrap; }
+  .section-line { min-width: 18px; }
+  .about-title h2, .projects-intro h2, .credential-intro h2, .contact h2 { font-size: clamp(42px, 13vw, 54px); }
+  .about-copy { padding: 25px 20px; }
+  .about-copy .lead { max-width: none; }
+  .about-links { gap: 4px; }
+  .education-card { padding: 17px 18px; }
+
+  .stack-group { min-width: 0; padding: 16px; }
+  .stack-items > .tech-item { min-width: min(125px, 100%); }
+
+  .featured-project { padding: 15px; }
+  .project-top { align-items: flex-start; gap: 10px; }
+  .project-status { text-align: right; }
+  .featured-project .project-visual { height: clamp(190px, 57vw, 230px); margin-left: -15px; margin-right: -15px; }
+  .chims-dashboard-image { padding: 5px; }
+  .project-main h3 { font-size: clamp(21px, 6vw, 25px); overflow-wrap: anywhere; }
+  .project-main p, .project-details p { font-size: 13px; }
+  .project-tags { width: 100%; }
+  .project-bottom { align-items: flex-start; gap: 14px; }
+  .feature-list { min-width: 0; }
+  .feature-list span { font-size: 9px; }
+
+  .credential-card { min-width: 0; }
+  .credential-name { font-size: clamp(30px, 10vw, 38px); overflow-wrap: anywhere; }
+  .certificate-polaroid { max-width: 290px; }
+  .contact { padding-left: 16px; padding-right: 16px; }
+  .contact h2 br { display: none; }
+  .contact-actions .button, .contact-social { min-width: 0; }
+  .footer { gap: 12px; }
+  .footer > span:first-child { font-size: 8px; }
+}
+
+@media (max-width: 360px) {
+  .nav-links a { font-size: 8px; }
+  .hero h1 { font-size: 50px; }
+  .profile-badge { right: -2px; width: min(225px, calc(100vw - 48px)); }
+  .profile-photo { height: auto; aspect-ratio: 1.075; width: 100%; }
+  .terminal-body { font-size: 10px; }
+  .section-id { font-size: 9px; }
+  .project-status { font-size: 8px; }
+}
