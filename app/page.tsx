@@ -340,6 +340,22 @@ function Terminal() {
 
 export default function Home() {
   usePageTransitions();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
+
+  const navigateFromMenu = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
+    setMenuOpen(false);
+    scrollToSection(event, id);
+  };
+
   return (
     <main>
       <BootScreen />
@@ -347,8 +363,19 @@ export default function Home() {
       <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" /><div className="grid-overlay" aria-hidden="true" />
       <nav className="nav shell" aria-label="Main navigation">
         <a className="brand" href="#top" aria-label="Mark Lawrence Quiozon home"><span className="brand-mark">ML</span><span className="brand-name">MARK<span>.QUIOZON</span></span></a>
-        <div className="nav-links"><a href="#about" onClick={(event) => scrollToSection(event, "about")}>About</a><a href="#stack" onClick={(event) => scrollToSection(event, "stack")}>Tech Stack</a><a href="#projects" onClick={(event) => scrollToSection(event, "projects")}>Projects</a><a href="#certifications" onClick={(event) => scrollToSection(event, "certifications")}>Learning</a></div>
-        <div className="nav-actions"><ThemeToggle /><a className="nav-contact" href="#contact" onClick={(event) => scrollToSection(event, "contact")}></a></div>
+        <div className={`nav-links${menuOpen ? " is-open" : ""}`} id="mobile-navigation">
+          <a href="#about" onClick={(event) => navigateFromMenu(event, "about")}>About</a>
+          <a href="#stack" onClick={(event) => navigateFromMenu(event, "stack")}>Tech Stack</a>
+          <a href="#projects" onClick={(event) => navigateFromMenu(event, "projects")}>Projects</a>
+          <a href="#certifications" onClick={(event) => navigateFromMenu(event, "certifications")}>Learning</a>
+        </div>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <a className="nav-contact" href="#contact" onClick={(event) => scrollToSection(event, "contact")}></a>
+          <button className="nav-menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}>
+            <span /><span /><span />
+          </button>
+        </div>
       </nav>
 
       <section className="hero shell" id="top">
